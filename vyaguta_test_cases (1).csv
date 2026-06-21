@@ -1,0 +1,102 @@
+Test Case ID,Test Description,Prerequisites,Test Steps,Test Data,Role,Status,Expected Result,Actual Result,Pass / Fail,Date of Creation,Comments
+MODULE 1: Login & Authentication,,,,,,,,,,,
+TC-LOG-001,Verify the login page loads correctly with all UI elements,Browser open; navigate to Vyaguta URL,"1. Open browser
+2. Go to Vyaguta login URL
+3. Observe the page layout",URL: app.vyaguta.com,Any User,Active,"Page shows: Leapfrog logo, frog illustration, ""Welcome to Vyaguta"" heading, and ""Continue with Google"" button",All elements displayed correctly,Pass,5/6/2026,Covers UI render of login screen (Image 1)
+TC-LOG-002,Verify successful login with a valid company Google account,User has a valid @leapfrog.io Google account,"1. Go to login page
+2. Click ""Continue with Google""
+3. Enter valid company email & password
+4. Click Sign In",Email: valid@leapfrog.io | Pass: correct,Any Employee,Active,User is authenticated and redirected to the main dashboard,Dashboard loads successfully,Pass,5/6/2026,Happy path login test
+TC-LOG-003,Verify login is rejected for non-company (personal) Gmail accounts,User has a personal Gmail account,"1. Go to login page
+2. Click ""Continue with Google""
+3. Enter personal Gmail address
+4. Click Sign In",Email: testuser@gmail.com,Any User,Active,Login is denied; error message states only company emails are allowed,Access denied with correct error,Pass,5/6/2026,Security check — personal accounts must be blocked
+MODULE 2: Add Employee — Step 1: Primary Info,,,,,,,,,,,
+TC-EMP-001,Verify Step 1 (Primary Info) form loads with all required fields visible,"HR/Admin logged in; click ""+ Add Employee""","1. Login as HR or Admin
+2. Click ""+ Add Employee""
+3. Observe Step 1 form fields",N/A,"HR, Admin",Active,"Form shows: First, Middle, Last Name; Employee Email; Mobile Phone; Home Phone; Gender; Date of Birth — mandatory fields marked with *",All fields visible and marked correctly,Pass,5/6/2026,Based on Image 4
+TC-EMP-002,Verify clicking Next with all mandatory fields filled advances to Step 2,Admin is on Step 1 of Create New Employee form,"1. Enter First Name: John
+2. Enter Last Name: Jasraj
+3. Enter Email: John@leapfrog.io
+4. Enter Mobile: 9800000000
+5. Select Gender: Male
+6. Pick DOB: 1998-01-01
+7. Click ""Next""",Name: John Jasrajji | Email: John@leapfrog.io | Mobile: 9800000000 | Gender: Male | DOB: 1998-01-01,"HR, Admin",Active,Form moves to Step 2 — Profile Info; progress bar shows Step 2 as active,Navigated to Step 2 successfully,Pass,5/6/2026,Based on Image 4
+TC-EMP-003,Verify validation error appears when mandatory fields are empty and Next is clicked,Admin is on Step 1; no fields filled,"1. Leave all fields empty
+2. Click ""Next""
+3. Observe validation messages",All fields: empty,"HR, Admin",Active,Validation errors appear under all mandatory fields; form does not proceed to Step 2,Error messages displayed; form stays on Step 1,Pass,5/6/2026,Negative test — empty form submission
+TC-EMP-004,Verify invalid email format in Employee Email field triggers validation error,Admin is on Step 1,"1. Fill all other mandatory fields correctly
+2. Enter Email: notanemail
+3. Click ""Next""",Email: notanemail,"HR, Admin",Active,"Error shown under Email field: ""Please enter a valid email address""; form does not proceed",Validation error shown correctly,Pass,5/6/2026,Boundary/negative test for email field
+MODULE 3: Add Employee — Step 2: Profile Info,,,,,,,,,,,
+TC-PRO-001,Verify Step 2 (Profile Info) displays all fields including optional and mandatory ones,Step 1 completed; user is on Step 2,"1. Complete Step 1 and click Next
+2. Observe Step 2 fields",N/A,"HR, Admin",Active,"Step 2 shows: Permanent Address*, Temporary Address, Blood Group, Marital Status*, Skype ID, GitHub ID, Add Skillset section",All fields displayed correctly,Pass,5/6/2026,Based on Image 3
+TC-PRO-002,Verify multiple skills can be selected from the skillset panel,Admin is on Step 2 — Profile Info,"1. Click on ""Javascript"" in skill categories
+2. Check ""Ember JS""
+3. Check ""Express JS""
+4. Verify selected skills appear as tags below","Skills: Ember JS, Express JS","HR, Admin",Active,Selected skills appear as removable tags (chips) at the bottom of the skillset section,Ember JS and Express JS shown as tags,Pass,5/6/2026,Multi-select skill functionality — Image 3
+TC-PRO-003,Verify clicking Previous on Step 2 goes back to Step 1 without losing data,Admin has filled Step 1 and is now on Step 2,"1. On Step 2, click ""Previous""
+2. Observe Step 1 fields",N/A,"HR, Admin",Active,User returns to Step 1; all previously entered data is still present in the fields,Step 1 data retained on navigation back,Pass,5/6/2026,Back navigation data persistence check
+MODULE 4: Add Employee — Step 3: Official Info,,,,,,,,,,,
+TC-OFF-001,Verify Step 3 (Official Info) displays all required fields for employment details,Steps 1 and 2 completed; user is on Step 3,"1. Complete Steps 1 and 2
+2. Arrive at Step 3 — Official Info
+3. Observe all fields",N/A,"HR, Admin",Active,"Step 3 shows: Employee ID*, Joining Date*, Coach*, Department*, Supervisor*, Designation*, Area*, Status*, Roles, Photo Upload",All fields visible and correctly labeled,Pass,5/6/2026,Based on Image 2
+TC-OFF-002,Verify a role can be selected from the role grid (e.g. Coach),Admin is on Step 3 — Official Info,"1. Scroll to the Roles section
+2. Click the ""Coach"" role tile
+3. Observe the tile highlight",Role: Coach,"HR, Admin",Active,The Coach tile is highlighted with a blue border indicating selection; other roles remain unselected,Coach tile highlighted correctly,Pass,5/6/2026,Role selection UI — Image 2
+TC-OFF-003,Verify clicking Finish with all mandatory fields filled creates the employee record,All three steps have been completed with valid data,"1. Fill all mandatory fields in Step 3
+2. Upload a photo (jpg/png)
+3. Click ""Finish""",Employee ID: LF-001 | Joining Date: 2026-05-01 | Dept: DEV | Status: Permanent | Role: Coach,"HR, Admin",Active,New employee record is created; user is redirected to the Employee List page; new employee appears in the list,Employee created and listed successfully,Pass,5/6/2026,End-to-end employee creation flow
+TC-OFF-004,Verify photo upload accepts only jpg and png file formats,Admin is on Step 3; reaches Photo Upload section,"1. Click on the Photo Upload area
+2. Attempt to upload a .pdf file
+3. Observe the system response",File: document.pdf,"HR, Admin",Active,"System rejects the .pdf file and shows error: ""Supported extensions: .jpeg, .png""",PDF rejected with correct error message,Pass,5/6/2026,File type validation — Image 2
+MODULE 5: Leave — Apply Work From Home (WFH),,,,,,,,,,,
+TC-WFH-001,Verify the Apply WFH form loads with all required fields,Employee is logged in; navigates to Leave > Today's Leave / WFH,"1. Login as Employee
+2. Click ""Leave"" in nav
+3. Click ""+ Apply WFH""
+4. Observe form fields",N/A,Employee,Active,"WFH form shows: Employee*, Date*, Reason*, Task To Do*, Availability*, workload emoji question, Additional Feedback",All form fields displayed correctly,Pass,5/6/2026,Based on Image 5
+TC-WFH-002,Verify successful WFH submission with all mandatory fields filled,Employee is on the Apply WFH form,"1. Employee is pre-filled (Richard Gram)
+2. Set Date: 2026-05-06
+3. Enter Reason: Office closed due to COVID-19
+4. Enter Task To Do: Work on sprint tickets
+5. Enter Availability: 9-6
+6. Select workload emoji
+7. Click ""Apply""",Employee: Richard Gram | Date: 2026-05-06 | Reason: Office closed | Availability: 9-6,Employee,Active,"WFH request submitted successfully; record appears in WFH Details table with status ""Requested""",WFH record created with Requested status,Pass,5/6/2026,Happy path WFH submission — Images 5 & 6
+TC-WFH-003,Verify submitting WFH form with empty mandatory fields shows validation errors,Employee is on Apply WFH form,"1. Leave Reason, Task To Do, and Availability blank
+2. Click ""Apply""
+3. Observe validation messages",Reason: empty | Task To Do: empty | Availability: empty,Employee,Active,Validation errors appear under empty mandatory fields; form is not submitted,Errors shown; form not submitted,Pass,5/6/2026,Negative test — mandatory field validation
+TC-WFH-004,Verify the workload emoji question is clickable and updates the selection visually,Employee is on the Apply WFH form,"1. Observe the 4 emoji options
+2. Click the ""manageable"" (slightly sad) emoji
+3. Observe which emoji is highlighted",Selected emoji: manageable (3rd option),Employee,Active,"The selected emoji appears highlighted/active; tooltip shows: ""It is manageable. I will ask for help if necessary.""",Emoji selected with tooltip shown,Pass,5/6/2026,Based on Image 6 — emoji tooltip behavior
+MODULE 6: Leave — WFH Approval (Manager/Admin View),,,,,,,,,,,
+TC-APR-001,Verify manager can view a pending WFH request with all employee details,Manager (Kabir) is logged in; a WFH request from Richard Gram is pending,"1. Login as Manager (Kabir)
+2. Go to Leave > Pending Requests
+3. Click on Richard Gram's WFH request
+4. Observe the WFH Request detail page","Employee: Richard Gram | Date: Sep 07, 2020 | Status: Pending","Manager, Admin",Active,"Detail page shows: Employee name, Date, Status (Pending), Availability, WFH Reason, workload emoji, Task To Do, Task Done field, and Approve/Reject buttons",All details visible; buttons present,Pass,5/6/2026,Based on Image 7
+TC-APR-002,Verify manager can approve a pending WFH request,Manager is viewing a pending WFH request detail page,"1. Open pending WFH request
+2. Click ""Approve"" button
+3. Observe status change",Employee: Richard Gram | Action: Approve,"Manager, Admin",Active,"Status changes from ""Pending"" to ""Approved"" (green dot); record updates in WFH Details table",Status updated to Approved correctly,Pass,5/6/2026,Approval flow — Images 7 & 8
+TC-APR-003,Verify manager can reject a pending WFH request,Manager is viewing a pending WFH request detail page,"1. Open pending WFH request
+2. Click ""Reject"" button
+3. Observe status change",Employee: Richard Gram | Action: Reject,"Manager, Admin",Active,"Status changes to ""Rejected""; request is removed from the Pending Requests list",Status updated to Rejected correctly,Pass,5/6/2026,Rejection flow — Image 7
+MODULE 7: Leave — WFH Details Table,,,,,,,,,,,
+TC-TBL-001,Verify WFH Details table displays all employees' WFH records with correct columns,Manager (Kabir) is logged in and on Today's Leave / WFH tab,"1. Login as Manager
+2. Navigate to Leave > Today's Leave / WFH
+3. Observe the WFH Details table",Fiscal Year: 18/19,"Manager, Admin",Active,"Table shows columns: Employee, Date, Reason, Availability, Question, Answer (emoji/score), Status; records paginated (e.g. 1-7 of 21)",Table displayed with correct columns and data,Pass,5/6/2026,Based on Image 8
+TC-TBL-002,Verify table pagination works — clicking page 2 loads the next set of records,Manager is on WFH Details table with 21 records (pages 1 2 3),"1. Observe current page shows records 1-7 of 21
+2. Click page ""2"" in pagination
+3. Observe new records",Total records: 21 | Page size: 7,"Manager, Admin",Active,"Records 8-14 are shown; current page indicator updates to ""2""",Pagination loads correct records,Pass,5/6/2026,Pagination behavior — Image 8
+TC-TBL-003,Verify table filters records correctly when Fiscal Year is changed,Manager is on WFH Details table,"1. Click the Fiscal Year dropdown (currently 18/19)
+2. Select a different fiscal year
+3. Observe the table data","Fiscal Year options: 18/19, 19/20, etc.","Manager, Admin",Active,Table refreshes and shows only WFH records from the selected fiscal year,Records filtered correctly by fiscal year,Pass,5/6/2026,Fiscal year filter — Image 8
+MODULE 8: Leave — WFH Questions Management,,,,,,,,,,,
+TC-QST-001,Verify the Questions tab shows a list of configured daily WFH questions,Manager (Kabir) is logged in,"1. Login as Manager
+2. Navigate to Leave > Questions tab
+3. Observe the Questions list",N/A,"Manager, Admin",Active,"Questions table shows: Title, Date, End Date columns; all active questions listed (e.g. ""How is your work load these days?"")",Questions list displayed correctly,Pass,5/6/2026,Based on Image 9
+TC-QST-002,Verify admin can create a new WFH question with up to 4 emoji-based answer options,Admin is on the Questions tab,"1. Click ""+ Add Question""
+2. Enter Question: ""How is your workload?""
+3. Add Option 1: emoji + ""It is ok""
+4. Add Option 2: emoji + ""It is manageable""
+5. Add Option 3: emoji + ""It is excessive""
+6. Set Start Date and End Date
+7. Click ""Save""",Question: How is your work load?,Admin,Active,"New question appears in the questions table with correct title, start date and end date",WFH questions can be created,Pass,5/6/2026,Supports emoji based answers up to 4 options
